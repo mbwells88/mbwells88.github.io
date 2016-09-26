@@ -1,0 +1,55 @@
+body {
+	padding-top:70px; <! Don't have text write over nav bar -->
+}
+
+h1 {
+	color: navy;
+	text-align: center;
+}
+nav ul{
+	position: fixed;
+	top: 0;
+	width: auto;
+	border: 2px solid blue;
+	list-style-type: none; <!-- Get rid of bullet points -->
+	background-color: blue;
+}
+nav li {
+	float:left;
+	border-right: 1px solid red;
+	background-color: lightblue;
+}
+nav li a{
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+}
+nav .active {
+	background-color: red
+}
+.characterImg{
+	display: inline-block;
+	width: 250px;
+	height:350px;
+	padding: 50px;
+	border: 5px solid blue;
+	zoom: 1;
+	display*: inline;
+}
+table, th, td{
+	border: 1px solid blue;
+	border-spacing: 1px;
+}
+th, td{
+	padding: 15px;
+}
+figure1 img{
+	max-width: 50%;
+	height: auto; 
+	margin: auto; 
+	display: block;
+}
+figure1 figcaption{
+	text-align: center;
+}
