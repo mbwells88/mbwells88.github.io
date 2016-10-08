@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <script>
+  //your code can go here
+    var makeBankAccount = function(){
+      var myBalance = 0;
+      return {
+        deposit: function(num){
+          myBalance += num;
+        },
+        withdraw: function(num){
+          myBalance -= num;
+        },
+        balance: function(){
+          return myBalance;
+        },
+        displayBalance: function(){
+          console.log(myBalance);
+        }
+      }
+    };
+    var account1 = makeBankAccount();
+    function poop(num){
+      console.log("Poop");
+      console.log(num);
+    }
+  </script>
+
+</head>
+<body>
+  <br />
+  Amount: <input type="text" id="textBox" value=2 />
+  <br />
+  <button id="increment">Deposit</button>
+  <button id="decrement">Withdraw</button>
+  <p id="accountBalance"></p>
+  <div id="container"></div>
+
+  <script>
+  //your code can go here
+    document.getElementById("accountBalance").innerHTML = "Balance($): " + account1.balance(); //Show balance at beginning
+    document.getElementById("increment").addEventListener("click", function(){
+      var amount = document.getElementById("textBox").value;
+      account1.deposit(Number(amount));
+      document.getElementById("accountBalance").innerHTML = "Balance($): " + account1.balance();
+      if(account1.balance() < 0){
+        document.getElementById("accountBalance").style.color = "red";
+      }
+      else{
+        document.getElementById("accountBalance").style.color = "green";
+      }
+    });
+    document.getElementById("decrement").addEventListener("click", function(){
+      var amount = document.getElementById("textBox").value;
+      account1.withdraw(Number(amount));
+      document.getElementById("accountBalance").innerHTML = "Balance($): " + account1.balance();
+      if(account1.balance() < 0){
+        document.getElementById("accountBalance").style.color = "red";
+      }
+      else{
+        document.getElementById("accountBalance").style.color = "green";
+      }
+    });
+
+
+  </script>
+</body>
+</html>
+
+
