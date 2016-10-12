@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aggie Island</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+        <!--feel free to embelish, but ensure you don't disrupt playability-->
+        <style>
+        body{
+                        text-align:center;
+                }
+                img{
+                        display: block;
+                        margin: auto;
+                }
+        </style>
+</head>
+<body>
+    <h1 id="heading">Find the buried treasure!</h1>
+
+    <img id="map" width=800 height=600 src="https://ruinexplorer.github.io/Pirate-Map-USU-Campus.png" onclick="getClickLocation(event)">
+
+    <p id="distance">Click on the map to search for the Treasure!</p>
+
+    <script>
+        //Add your code here
+        var width = document.getElementById("map").width;
+        var height = document.getElementById("map").height;
+        var sideAverage = (width + height)/2;
+        var clicks = 0;
+        //we need treasure location, random function, click events, find distance -> hint
+      //show hint in distance, and win condition
+        var getRandomNum = function(size){
+          return Math.floor(Math.random() * size);
+        }
+        var treasure = {
+          x: getRandomNum(width),
+          y: getRandomNum(height)
+        };
+      
+      function resetGame(){
+        clicks = 0;
+        treasure.x = getRandomNum(width);
+        treasure.y = getRandomNum(height);
+      }
+      var getDistance = function(event, treasure){
+        var differenceX = event.offsetX - treasure.x;
+        var differenceY = event.offsetY - treasure.y;
+        return Math.sqrt((differenceX * differenceX) + (differenceY * differenceY));
+      }
+      var getHint = function(distance){
+        if(distance < sideAverage * .025)
+          return "boiling hot";
+        if(distance < sideAverage * .05)
+          return "really hot";
+        if(distance < sideAverage * .1)
+          return "hot";
+        if(distance < sideAverage * .2)
+          return "warm";
+        if(distance < sideAverage * .4)
+          return "cold";
+        if(distance < sideAverage * .8)
+          return "really cold";
+        else
+          return "freezing!";
+      }
+      function getClickLocation(event){
+        clicks++;
+        var distance = getDistance(event, treasure);
+        var hint = getHint(distance);
+        document.getElementById("distance").innerHTML = (
+        "Arr! You dug " + clicks + " holes and are " + hint);
+        if(distance < sideAverage * .02){
+          alert("Found Treasure in " + clicks + " clicks");
+          document.getElementById("distance").innerHTML = ("You found the treasure by digging " + clicks + " holes. Click to try again.");
+          resetGame();
+        }
+        if(clicks > 50){
+          resetGame();
+        }
+        //console.log(event.offsetX);
+      }
+      //console.log(treasure);
+
+    </script>
+</body>
+</html>
