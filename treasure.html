@@ -76,7 +76,9 @@
           document.getElementById("distance").innerHTML = ("You found the treasure by digging " + clicks + " holes. Click to try again.");
           resetGame();
         }
-        if(clicks > 50){
+        if(clicks >= 50){
+	  alert("You clicked 50 times! You starved on Aggie Island and did not find the treasure.");
+          document.getElementById("distance").innerHTML = ("You Lost! Click to try again.");
           resetGame();
         }
         //console.log(event.offsetX);
