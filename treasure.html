@@ -31,58 +31,67 @@
         var clicks = 0;
         //we need treasure location, random function, click events, find distance -> hint
       //show hint in distance, and win condition
+
+	//Get a random number based on size passed to the function
         var getRandomNum = function(size){
           return Math.floor(Math.random() * size);
         }
+	//Get a coordinate for the treasure.
         var treasure = {
           x: getRandomNum(width),
           y: getRandomNum(height)
         };
-      
-      function resetGame(){
-        clicks = 0;
-        treasure.x = getRandomNum(width);
-        treasure.y = getRandomNum(height);
-      }
-      var getDistance = function(event, treasure){
-        var differenceX = event.offsetX - treasure.x;
-        var differenceY = event.offsetY - treasure.y;
-        return Math.sqrt((differenceX * differenceX) + (differenceY * differenceY));
-      }
-      var getHint = function(distance){
-        if(distance < sideAverage * .025)
-          return "boiling hot";
-        if(distance < sideAverage * .05)
-          return "really hot";
-        if(distance < sideAverage * .1)
-          return "hot";
-        if(distance < sideAverage * .2)
-          return "warm";
-        if(distance < sideAverage * .4)
-          return "cold";
-        if(distance < sideAverage * .8)
-          return "really cold";
-        else
-          return "freezing!";
-      }
-      function getClickLocation(event){
-        clicks++;
-        var distance = getDistance(event, treasure);
-        var hint = getHint(distance);
-        document.getElementById("distance").innerHTML = (
-        "Arr! You dug " + clicks + " holes and are " + hint);
-        if(distance < sideAverage * .02){
-          alert("Found Treasure in " + clicks + " clicks");
-          document.getElementById("distance").innerHTML = ("You found the treasure by digging " + clicks + " holes. Click to try again.");
-          resetGame();
-        }
-        if(clicks >= 50){
-	  alert("You clicked 50 times! You starved on Aggie Island and did not find the treasure.");
-          document.getElementById("distance").innerHTML = ("You Lost! Click to try again.");
-          resetGame();
-        }
-        //console.log(event.offsetX);
-      }
+	//Function to start the game over.
+      	function resetGame(){
+		clicks = 0;
+		treasure.x = getRandomNum(width);
+		treasure.y = getRandomNum(height);
+    		document.getElementById("distance").innerHTML = ("Click on the map to search for the Treasure!");
+      	}
+	//Get the distance between the click event and the treasure coordinate
+      	var getDistance = function(event, treasure){
+        	var differenceX = event.offsetX - treasure.x;
+        	var differenceY = event.offsetY - treasure.y;
+        	return Math.sqrt((differenceX * differenceX) + (differenceY * differenceY));
+     	}
+	//Get a hint depending on location. 
+      	var getHint = function(distance){
+		if(distance < sideAverage * .025)
+		  return "boiling hot";
+		if(distance < sideAverage * .05)
+		  return "really hot";
+		if(distance < sideAverage * .1)
+		  return "hot";
+		if(distance < sideAverage * .2)
+		  return "warm";
+		if(distance < sideAverage * .4)
+		  return "cold";
+		if(distance < sideAverage * .8)
+		  return "really cold";
+		else
+		  return "freezing!";
+      	}
+	//Function called when a click is registered
+      	function getClickLocation(event){
+		clicks++;
+		var distance = getDistance(event, treasure);
+		var hint = getHint(distance);
+		if(clicks == 1)
+			document.getElementById("distance").innerHTML = ("Arr! You dug " + clicks + " hole and are " + hint);
+		else	
+			document.getElementById("distance").innerHTML = ("Arr! You dug " + clicks + " holes and are " + hint);
+		if(distance < sideAverage * .02){
+		  alert("Found Treasure in " + clicks + " clicks");
+		  document.getElementById("distance").innerHTML = ("You found the treasure by digging " + clicks + " holes. Click to try again.");
+		  resetGame();
+		}
+		if(clicks >= 50){
+		  alert("You clicked 50 times! You starved on Aggie Island and did not find the treasure.");
+		  document.getElementById("distance").innerHTML = ("You Lost! Click to try again.");
+		  resetGame();
+		}
+		//console.log(event.offsetX);
+	}
       //console.log(treasure);
 
     </script>
